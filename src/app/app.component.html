@@ -1,27 +1,20 @@
-<header>
-  <h1>{{appTitle }}</h1>
-
-  <nav>
-    <ul>
-      <li *ngFor="let option of options"> 
-        {{ option }}
-      </li>
-    </ul>
-  </nav>
-  <input type="text" [(ngModel)]="option"> <!-- on lie le champ de l'input à l'attribut option du .ts-->
-  <button 
-  type="button" 
-  (click)="addOption()"
-  [disabled]="checkOption()" 
-  > 
-  <!-- on est à l'écoute du click et si on l'entend on lance la méthode "addOption()" -->
-  <!-- si "checkOption()" renvoi vrai alors le button est désactivé -->
-    Ajouter
-    <!-- Le bouton porte le nom de "Ajouter" -->
-  </button>
+<header class="tile">
+  <h1>
+    <button type="button" class="button"  [disabled]="isItToday()" (click)='displayPreviousDate()'>
+     &lt;&lt;
+    </button>
+    {{ appTitle }} -  {{ shuttleDate | amLocale: 'fr' | amDateFormat: 'DD MMMM YYYY'}}
+    <button  type="button" class="button" (click)='displayNextDate()'>&gt;&gt;</button>
+  </h1>
 
 </header>
 
+<!-- Displaying all tours -->
+<div class="tile" *ngFor="let tour of tours">
+  <div class="tile-hour">{{ tour.hour }}</div>
+  <div class="tile-places">{{ tour.availablePlaces }}</div>
+  <div class="outer-form">Here goes the form (but ...later)</div>
+</div>
 
 <router-outlet></router-outlet>
 

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-root',
@@ -7,30 +7,61 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  public appTitle = 'navette';
-  public options: string[];
-  public option: string; 
+  public appTitle = 'Navette';
+  public PreviousDateSelector = '<<';
+  public NextDateSelector ='>>';
+  public shuttleDate: moment.Moment = moment();
+  public tours: any[];
+ 
 
   public constructor() {
-    this.options = new Array<string>() ;
-
+    this.tours = new Array<any>() ;
   }
 
   public ngOnInit(): void{
-    this.options.push('Accueil');
-    this.options.push('Navette');
-    this.options.push('Mon compte');
-    this.options.push('Contact');
+    this.tours.push(
+      {
+        hour: '08:00',
+        availablePlaces : 8
+      }
+    )
+    this.tours.push(
+      {
+        hour: '11:00',
+        availablePlaces : 5
+      }
+    )
+    this.tours.push(
+      {
+        hour: '14:00',
+        availablePlaces : 3
+      }
+    )
+    this.tours.push(
+      {
+        hour: '17:00',
+        availablePlaces : 0
+      }
+    )
+
   }
 
-  public addOption(): void {
-    if (!this.checkOption()) {
-      this.options.push(this.option);
-    }         
+  public displayPreviousDate(): void {
+    const shuttleDate: moment.Moment = this.shuttleDate.clone(); //on clone la date car on ne peut pas directement la modifier
+    shuttleDate.subtract(1, 'd');
+
+    this.shuttleDate = shuttleDate; 
   }
 
-  public checkOption(): boolean {
-    return !(this.option && this.option.trim().length > 0);
+  public displayNextDate(): void {
+    const shuttleDate: moment.Moment = this.shuttleDate.clone();
+    shuttleDate.add(1, 'd');
+
+    this.shuttleDate = shuttleDate;
+  }
+
+  public isItToday(): boolean{
+    return this.shuttleDate.isSame(moment(), 'd');
   }
 
 }
