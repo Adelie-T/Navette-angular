@@ -1,0 +1,40 @@
+<mat-toolbar color="primary">Merci de vous indentifier</mat-toolbar>
+<form [formGroup]="loginForm" class="example-form">
+    <!--Tous les formulaires doivent préciser qu'ils seront gérés par le module FormGroup via l'attribut loginForm -->
+
+    <!-- Ancien input - sans Material Angular
+    <div class="field-placeholder">
+        <input type="text" placeholder="Login..." formControlName="login">
+    </div>    -->
+
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Votre login..." formControlName="login">
+    </mat-form-field>
+    <div class="error-placeholder" *ngIf="login && login.errors && login.touched">
+        <!-- On attend que l'input ait été touché mais non rempli pour afficher le message -->
+        Le login est obligatoire et doit contenir 5 caractères minimum
+    </div>
+
+    <mat-form-field class="example-full-width">
+        <input matInput placeholder="Votre mot de passe..." formControlName="password">
+    </mat-form-field>
+
+    <div class="error-placeholder" *ngIf="password && password.errors && password.touched">
+        Le mot de passe est obligatoire
+    </div>
+
+    <mat-checkbox>Rester connecté</mat-checkbox>
+
+    <br> 
+    <br>    
+
+    <mat-chip-list>
+        <button mat-button>Mot de passe oublié</button>
+        <mat-chip color="accent" selected (click)="go()" [disabled]="loginForm.invalid">Go !</mat-chip>
+    </mat-chip-list>
+
+</form>
+
+
+
+{{ loginForm.value | json }}

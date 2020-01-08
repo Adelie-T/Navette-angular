@@ -17,7 +17,7 @@ export class AppComponent implements OnInit {
   public tours: any[];
    
 
-  public constructor(private tourDateService: TourDateService) {
+  public constructor(public tourDateService: TourDateService) {
     this.tours = new Array<any>() ;
   }
 
@@ -33,7 +33,11 @@ export class AppComponent implements OnInit {
     (result: any) =>{
       this.today = moment(result.currentDateTime);
 
-      this.shuttleDate = this.today.clone();
+      this.shuttleDate = 
+      //this.tourDateService.check(
+        this.today.clone()
+        //)
+        ;
 
     console.log('Go !');
     this.tours.push(
@@ -77,9 +81,9 @@ export class AppComponent implements OnInit {
 
     this.shuttleDate = shuttleDate;
   }
-
   public isItToday(): boolean{
     return this.shuttleDate.isSame(moment(), 'd');
   }
+
 
 }
