@@ -9,12 +9,14 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './shared/ui/material/material.module';
+import { ToursComponent } from './tours/tours.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    LoginComponent
+    LoginComponent,
+    ToursComponent
   ],
   imports: [
     BrowserModule,
@@ -28,7 +30,7 @@ import { MaterialModule } from './shared/ui/material/material.module';
        
   ],
   providers: [],
-  bootstrap: [LoginComponent]
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
 

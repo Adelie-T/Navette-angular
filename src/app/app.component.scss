@@ -1,0 +1,11 @@
+header{
+    border: 1px black;
+}
+
+mat-icon {
+    &.add-cursor {
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

@@ -1,0 +1,23 @@
+<div *ngIf="today">
+    <header>
+      <h1>
+        <button type="button" class="button" [disabled]="isItToday()" (click)='displayPreviousDate()'>
+          &lt;&lt;
+        </button>
+        {{ appTitle }} - {{ shuttleDate | amLocale: 'fr' | amDateFormat: 'DD MMMM YYYY'}}
+        <button type="button" class="button" (click)='displayNextDate()'>&gt;&gt;</button>
+      </h1>
+  
+    </header>
+  
+    <!-- Displaying all tours -->
+    <div class="tile" *ngFor="let tour of tours">
+      <div class="tile-hour">{{ tour.hour }}</div>
+      <div class="tile-places">{{ tour.availablePlaces }}</div>
+      <div class="outer-form">Here goes the form (but ...later)
+  
+      </div>
+    </div>
+  </div>
+  
+
