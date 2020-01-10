@@ -1,11 +1,11 @@
 <div *ngIf="today">
     <header>
       <h1>
-        <button type="button" class="button" [disabled]="isItToday()" (click)='displayPreviousDate()'>
+        <button type="button" class="button" [disabled]="isItToday()" (click)="displayPreviousDate()">
           &lt;&lt;
         </button>
         {{ appTitle }} - {{ shuttleDate | amLocale: 'fr' | amDateFormat: 'DD MMMM YYYY'}}
-        <button type="button" class="button" (click)='displayNextDate()'>&gt;&gt;</button>
+        <button type="button" class="button" (click)="displayNextDate()">&gt;&gt;</button>
       </h1>
   
     </header>

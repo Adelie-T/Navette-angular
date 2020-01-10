@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { UserServiceService } from '../core/services/user-service.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -11,7 +12,7 @@ export class LoginComponent implements OnInit { //on implémente OnInit pour pou
 
   public loginForm : FormGroup;
 
-  constructor(private formBuilder: FormBuilder, private userService: UserServiceService) { }
+  constructor(private formBuilder: FormBuilder, private userService: UserServiceService, private router: Router) { }
 
   public get login(): AbstractControl { //getter magique (on ne met pas () dans la vue)
     return this.loginForm.controls.login; //il renvoit le contôle 'login'
@@ -42,7 +43,8 @@ export class LoginComponent implements OnInit { //on implémente OnInit pour pou
   public go(): void {
    if (this.userService.controlUser(this.loginForm.value)) {
      console.log('Hello User');
-     
+     this.router.navigate(['home']);
+
    } else {
      console.log('Je ne te connais pas !');
      //Snackbar to inform user that he is fu** b*st**rd
@@ -52,5 +54,6 @@ export class LoginComponent implements OnInit { //on implémente OnInit pour pou
   public isNotFormValid(): boolean {
     return this.loginForm.invalid;
   }
+
 
 }

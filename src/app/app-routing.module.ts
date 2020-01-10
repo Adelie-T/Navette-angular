@@ -23,6 +23,11 @@ const routes: Routes = [
     redirectTo: 'home',
     pathMatch: 'full',
   },
+  { 
+    path: '**', //si on se trompe dans le chemin on revient sur 'home'
+    redirectTo: 'home',
+    pathMatch: 'full'
+  }
 ];
 
 @NgModule({

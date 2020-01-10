@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as moment from 'moment';
+import { Moment } from 'moment';
 import { TourDateService } from './../core/services/tour-date.service';
 import { pipe } from 'rxjs';
 import {first } from 'rxjs/operators';
@@ -11,18 +12,18 @@ import {first } from 'rxjs/operators';
 })
 export class ToursComponent implements OnInit {
 
-  public appTitle = 'navette';
-  public shuttleDate: moment.Moment; 
+  //Dans chaque classe on définit les attibuts (qu'on utilisera dans la classe avec this.**)
+
+  public shuttleDate: Moment; //on peut utiliser juste "Moment" à condition qu'on importe que le module {Moment} et non pas tout (*) de 'moment'
   public today : moment.Moment; 
   public tours: any[];
 
-  public constructor(public tourDateService: TourDateService) {
-    this.tours = new Array<any>() ;
+
+  public constructor(public tourDateService: TourDateService) { //on injecte la dépendance à TourDateService
+    this.tours = new Array<any>() ; //au moment de l'instanciation, on initialise les attributs
   }
 
- 
-
-  public ngOnInit(): void{
+ public ngOnInit(): void{
 
   //Invoke service to get current shuttleDay
   this.tourDateService.getUtcDate()
@@ -36,7 +37,7 @@ export class ToursComponent implements OnInit {
       //this.tourDateService.check(
         this.today.clone()
         //)
-        ;
+        ; 
 
     console.log('Go !');
     this.tours.push(
@@ -67,23 +68,20 @@ export class ToursComponent implements OnInit {
   }
 
   public displayPreviousDate(): void {
-    const shuttleDate: moment.Moment = this.shuttleDate.clone(); //on clone la date car on ne peut pas directement la modifier
+    const theDate: moment.Moment = this.shuttleDate.clone(); //on clone la date car on ne peut pas directement la modifier
     //console.log(shuttleDate.getDay())
-    shuttleDate.subtract(1, 'd');
-
-    this.shuttleDate = shuttleDate; 
+    this.shuttleDate = this.tourDateService.decrementDate(theDate, this.today);
   }
 
-  public displayNextDate(): void {
-    const shuttleDate: moment.Moment = this.shuttleDate.clone();
-    shuttleDate.add(1, 'd');
+   public displayNextDate(): void {
+    const theDate: moment.Moment = this.shuttleDate.clone();
+    this.shuttleDate = this.tourDateService.incrementDate(theDate);
+ }
 
-    this.shuttleDate = shuttleDate;
-  }
-  public isItToday(): boolean{
-    return this.shuttleDate.isSame(moment(), 'd');
-  }
 
+  public isItToday(): boolean {
+    return this.shuttleDate.isSame(this.today, 'd');
+  }
 
 
 }
